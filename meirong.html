@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YY美业 - 缅甸腊戌 | 艺术与美的殿堂</title>
+    <!-- 添加搜索引擎优化 (SEO) 关键词 - 针对缅甸掸邦北部腊戌，并包含综合美容服务 -->
+    <meta name="keywords" content="缅甸腊戌美容, 腊戌美容沙龙, 掸邦北部美容院, 缅甸掸邦美容中心, 腊戌美发, 腊戌美甲, 腊戌美睫, 腊戌纹身, 腊戌美容针剂, 腊戌微整形, 腊戌医美, 整容缅甸, 美容缅甸, 美发缅甸, 美甲缅甸, 美睫缅甸, 纹身缅甸, 美容针剂缅甸, 微整形缅甸, 医美缅甸, 综合美容服务缅甸, 皮肤管理腊戌, YY美业腊戌, Lashio beauty salon, Northern Shan State beauty, Myanmar cosmetic surgery, Lashio hair salon, Lashio nail art, Lashio lash extensions, Lashio tattooing, beauty injections Lashio, micro plastic surgery Myanmar, medical aesthetics Lashio, professional beauty Lashio, high-end beauty services Myanmar, personalized beauty Lashio, YY Beauty">
+    <meta name="description" content="YY美业，位于缅甸掸邦北部腊戌，是您寻找专业、综合美容服务的首选。我们提供包括奢华皮肤护理、精致美甲、时尚美发、专业彩妆、舒缓SPA、自然嫁接睫毛、美容针剂、微整形和纹身在内的多元化服务。立即预约，焕发您的独特光彩！">
+    <meta name="author" content="YY美业">
+
+    <!-- 引入 Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts - Inter 用于通用文本，Parisienne 用于艺术感店名 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Parisienne&display=swap" rel="stylesheet">
+    <!-- 引入 Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- 引入 Three.js 用于 3D 蝴蝶效果 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        /* 自定义 CSS 样式 */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333;
+            /* 更新背景颜色为更高级的渐变 */
+            background: radial-gradient(circle at top left, #fcfafb, #fdf6f5 50%, #f9f9f9 100%); /* 更柔和的粉白渐变 */
+            overflow-x: hidden; /* 防止水平滚动 */
+            -webkit-font-smoothing: antialiased; /* 平滑字体渲染 */
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh; /* 确保body足够高以显示整个页面 */
+            position: relative; /* 为画布提供定位上下文 */
+        }
+
+        /* 全局颜色变量 */
+        :root {
+            --color-gold-500: #d4af37; /* 主金色 */
+            --color-gold-600: #b6952d;
+            --color-pink-elegance-50: #fefcfd; /* 极浅粉 */
+            --color-pink-elegance-100: #fce8f0; /* 浅粉 */
+            --color-pink-elegance-200: #fad2e2;
+            --color-pink-elegance-300: #f7bbd4;
+            --color-pink-elegance-400: #f4a4c6;
+            --color-pink-elegance-500: #F08EBB; /* 主粉色 */
+            --color-pink-elegance-600: #d87da7;
+            --color-pink-elegance-700: #c06c93;
+            --color-pink-elegance-800: #a85b7f;
+            --color-pink-elegance-900: #904a6b;
+            --color-pink-elegance-500-rgb: 240, 142, 187; /* 用于RGBA背景 */
+            --color-bg-light: #fdf6f5; /* 页面通用浅背景，微调使其更柔和 */
+        }
+
+        /* 为店名 YY美业 设置艺术字体 */
+        .salon-name {
+            font-family: 'Parisienne', cursive;
+            font-size: 3.5rem; /* 大尺寸 */
+            font-weight: 400; /* 默认字重 */
+            color: var(--color-gold-500); /* 金色调 */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2); /* 柔和阴影 */
+            display: inline-block;
+            line-height: 1;
+        }
+        .salon-name.text-white { /* 英雄区店名白色 */
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+        }
+
+        /* 顶部导航栏样式 */
+        .header-fixed {
+            transition: transform 0.5s ease-in-out, background-color 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            /* 磨砂玻璃效果 */
+            backdrop-filter: blur(15px); /* 增强模糊 */
+            -webkit-backdrop-filter: blur(15px); /* Safari support */
+            background-color: rgba(255, 255, 255, 0.9); /* 更透明一点 */
+            border-bottom: 1px solid rgba(240, 142, 187, 0.3); /* 柔和的底部边框 */
+            padding-top: 1rem; /* 增加上下内边距 */
+            padding-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* 轻微阴影 */
+        }
+        .header-hidden {
+            transform: translateY(-100%); /* 完全隐藏 */
+            opacity: 0; /* 渐消 */
+        }
+
+        /* 导航链接“框”样式 */
+        .nav-item-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem; /* 内边距 */
+            border-radius: 9999px; /* rounded-full */
+            background: linear-gradient(135deg, var(--color-pink-elegance-100), var(--color-pink-elegance-200));
+            color: #555; /* 默认字体颜色 */
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* 轻微阴影 */
+            white-space: nowrap; /* 防止换行 */
+        }
+        .nav-item-box:hover {
+            background: linear-gradient(135deg, var(--color-pink-elegance-300), var(--color-pink-elegance-400));
+            color: white;
+            box-shadow: 0 4px 12px rgba(var(--color-pink-elegance-500-rgb), 0.3);
+            transform: translateY(-2px);
+        }
+        .nav-item-box.active {
+            background: linear-gradient(135deg, var(--color-pink-elegance-500), var(--color-pink-elegance-700));
+            color: white;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2), 0 6px 15px rgba(var(--color-pink-elegance-500-rgb), 0.4); /* 内嵌阴影和外阴影 */
+            transform: translateY(-1px);
+        }
+        .nav-item-box.active:hover {
+            transform: translateY(-3px);
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2), 0 8px 20px rgba(var(--color-pink-elegance-500-rgb), 0.5);
+        }
+
+        /* 页面背景图样式 - 带有视差效果 */
+        .hero-section {
+            background-image: url('https://images.unsplash.com/photo-1596788647087-0b1352e85489?q=80&w=1920&auto=format&fit=crop'); /* 更换背景图URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* 固定背景图 */
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            z-index: 5; /* 确保内容在蝴蝶上方 */
+            overflow: hidden; /* 防止内容溢出，配合圆角 */
+            border-radius: 2rem; /* 增加大圆角 */
+            margin: 2rem 1rem; /* 统一外边距 */
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15); /* 更明显的阴影 */
+            transform-style: preserve-3d; /* For parallax within hero */
+            transform: translateZ(0); /* Creates a new stacking context for parallax */
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45); /* 半透明深色叠加 */
+            border-radius: inherit; /* 继承父元素的圆角 */
+        }
+        /* 滚动平滑效果 */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* 按钮悬停效果 */
+        .btn-primary {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--color-pink-elegance-500), var(--color-pink-elegance-700));
+            box-shadow: 0 8px 20px rgba(var(--color-pink-elegance-500-rgb), 0.4);
+            border: none;
+            padding: 0.9rem 2.5rem; /* 稍微增加内边距 */
+            font-size: 1.1rem; /* 字体大一点 */
+            font-weight: 600;
+            border-radius: 9999px; /* 圆角按钮 */
+        }
+        .btn-primary:hover {
+            transform: translateY(-5px); /* 向上浮动 */
+            box-shadow: 0 12px 30px rgba(var(--color-pink-elegance-500-rgb), 0.6);
+            background: linear-gradient(135deg, var(--color-pink-elegance-600), var(--color-pink-elegance-800));
+        }
+
+        /* 服务卡片阴影和圆角 */
+        .service-card {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* 更柔和但明显的阴影 */
+            transition: all 0.4s ease;
+            border: 1px solid var(--color-pink-elegance-100);
+            background-color: white;
+            position: relative;
+            z-index: 10; /* 确保卡片有层次感 */
+        }
+        .service-card:hover {
+            transform: translateY(-8px) scale(1.02); /* 浮动并轻微放大 */
+            box-shadow: 0 15px 40px rgba(var(--color-pink-elegance-500-rgb), 0.2); /* 悬停时更深阴影 */
+        }
+
+        /* 员工头像样式 */
+        .staff-avatar {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid var(--color-pink-elegance-300);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .staff-avatar:hover {
+            transform: scale(1.08);
+        }
+
+        /* 页脚样式 */
+        footer {
+            background: linear-gradient(to right, var(--color-pink-elegance-600), var(--color-pink-elegance-800));
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Three.js canvas 样式 */
+        #butterfly-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0; /* 确保在所有内容下方 */
+            pointer-events: none; /* 允许点击穿透画布 */
+        }
+
+        /* 模态窗口样式 */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh; /* Adjust height for content */
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease-out;
+            transform: scale(0.95);
+            transition: transform 0.3s ease-out;
+        }
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            color: #aaa;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .modal-close:hover,
+        .modal-close:focus {
+            color: var(--color-pink-elegance-500);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* AI 顾问按钮 */
+        .ai-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--color-gold-500), var(--color-pink-elegance-500));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        .ai-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* AI 聊天窗口 */
+        .ai-chat-window {
+            display: none;
+            position: fixed;
+            bottom: 90px; /* Above the AI button */
+            right: 20px;
+            width: 350px; /* Fixed width for chat */
+            height: 500px; /* Fixed height for chat */
+            background-color: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 998;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideUp 0.3s ease-out;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        .ai-chat-window.show {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .chat-header {
+            background: linear-gradient(to right, var(--color-pink-elegance-500), var(--color-gold-500));
+            color: white;
+            padding: 1rem 1.5rem;
+            border-top-left-radius: 1.5rem;
+            border-top-right-radius: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .chat-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+        .chat-close-btn:hover {
+            opacity: 1;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            word-wrap: break-word;
+        }
+        .chat-message.user {
+            background-color: var(--color-pink-elegance-200);
+            color: #333;
+            align-self: flex-end;
+            border-bottom-right-radius: 0.25rem;
+        }
+        .chat-message.ai {
+            background-color: var(--color-gold-500);
+            color: white;
+            align-self: flex-start;
+            border-bottom-left-radius: 0.25rem;
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid #eee;
+        }
+        .chat-input-area input {
+            flex-grow: 1;
+            border: 1px solid #ddd;
+            border-radius: 9999px; /* rounded-full */
+            padding: 0.75rem 1.25rem;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .chat-input-area input:focus {
+            border-color: var(--color-pink-elegance-500);
+        }
+        .chat-input-area button {
+            background-color: var(--color-pink-elegance-500);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .chat-input-area button:hover {
+            background-color: var(--color-pink-elegance-700);
+            transform: scale(1.05);
+        }
+        .chat-loading-indicator {
+            align-self: flex-start;
+            padding: 0.75rem 1rem;
+            background-color: #e0e0e0;
+            color: #666;
+            border-radius: 1rem;
+            font-style: italic;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* AI聊天窗口内的按钮样式 */
+        .ai-chat-window .btn-primary-small {
+            background: linear-gradient(135deg, var(--color-pink-elegance-400), var(--color-pink-elegance-600));
+            box-shadow: 0 4px 10px rgba(var(--color-pink-elegance-500-rgb), 0.2);
+            font-size: 0.95rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 9999px;
+            margin-bottom: 1rem; /* Space below the button */
+            color: white; /* Ensure text is white */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: block; /* Make it take full width of its container */
+            border: none; /* Remove default button border */
+        }
+        .ai-chat-window .btn-primary-small:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(var(--color-pink-elegance-500-rgb), 0.3);
+            background: linear-gradient(135deg, var(--color-pink-elegance-500), var(--color-pink-elegance-700));
+        }
+
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        /* 媒体查询 */
+        @media (max-width: 768px) {
+            .salon-name {
+                font-size: 2.5rem;
+            }
+            .hero-section {
+                min-height: 60vh;
+            }
+            .hero-section h1 {
+                font-size: 4rem;
+            }
+            .hero-section p {
+                font-size: 1.1rem;
+            }
+            .nav-item-box {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            .btn-primary {
+                padding: 0.7rem 2rem;
+                font-size: 1rem;
+            }
+            .ai-chat-window {
+                width: 90%;
+                right: 5%;
+                bottom: 80px;
+                height: 70vh;
+            }
+            .ai-button {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Three.js 蝴蝶、蜜蜂、花瓣背景画布 -->
+    <canvas id="butterfly-canvas"></canvas>
+
+    <!-- 顶部导航栏 -->
+    <header id="main-header" class="header-fixed fixed top-0 left-0 w-full z-50 px-4">
+        <nav class="container mx-auto flex justify-between items-center py-4">
+            <a href="#hero" class="text-2xl font-bold salon-name text-gold-500">YY美业</a>
+            <div class="hidden md:flex space-x-4">
+                <a href="#hero" class="nav-item-box active">首页</a>
+                <a href="#services" class="nav-item-box">服务项目</a>
+                <a href="#about" class="nav-item-box">关于我们</a>
+                <a href="#team" class="nav-item-box">专业团队</a>
+                <a href="#contact" class="nav-item-box">联系我们</a>
+            </div>
+            <!-- 移动端菜单按钮 -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-800 focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+        <!-- 移动端菜单内容 -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white bg-opacity-95 shadow-lg py-4">
+            <a href="#hero" class="block px-4 py-2 text-center text-gray-700 hover:bg-pink-100">首页</a>
+            <a href="#services" class="block px-4 py-2 text-center text-gray-700 hover:bg-pink-100">服务项目</a>
+            <a href="#about" class="block px-4 py-2 text-center text-gray-700 hover:bg-pink-100">关于我们</a>
+            <a href="#team" class="block px-4 py-2 text-center text-gray-700 hover:bg-pink-100">专业团队</a>
+            <a href="#contact" class="block px-4 py-2 text-center text-gray-700 hover:bg-pink-100">联系我们</a>
+        </div>
+    </header>
+
+    <main class="relative z-10"> <!-- Main content over the canvas -->
+        <!-- 英雄区 (Hero Section) -->
+        <section id="hero" class="hero-section mt-[80px] flex items-center justify-center text-center text-white relative">
+            <div class="hero-overlay"></div>
+            <div class="relative z-10 px-4">
+                <h1 class="text-6xl md:text-7xl font-bold mb-4 salon-name text-white leading-tight">
+                    YY美业
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 font-light max-w-2xl mx-auto">
+                    探索无尽之美，焕发独特光彩，艺术与美的殿堂，只为极致的您。
+                </p>
+                <a href="https://t.me/babyyimei" target="_blank" class="btn-primary inline-block py-3 px-8 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transition duration-300">
+                    预约咨询
+                </a>
+            </div>
+        </section>
+
+        <!-- 服务项目 (Services Section) -->
+        <section id="services" class="container mx-auto py-16 px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 relative pb-4">
+                <span class="relative z-10">我们的专业服务</span>
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-pink-elegance-500 to-gold-500 rounded-full"></span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 服务卡片 1：奢华皮肤护理 -->
+                <div class="service-card bg-white p-8 rounded-2xl text-center flex flex-col items-center justify-center">
+                    <img src="https://th.bing.com/th/id/OIP._GCjZ3P_e0V0MzJK3MoNUgHaHb?w=162&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="奢华皮肤护理图片" class="w-full h-48 object-cover rounded-xl mb-6 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F08EBB/FFFFFF?text=奢华皮肤护理图片';">
+                    <h3 class="text-2xl font-semibold mb-3 text-pink-elegance-600">奢华皮肤护理</h3>
+                    <p class="text-gray-600 mb-4">
+                        运用尖端科技与天然护肤品，为您量身定制的深层护理，让肌肤焕发青春光彩。
+                    </p>
+                    <button class="btn-primary text-sm px-6 py-2 open-details-btn" data-service-id="skin-care">了解详情</button>
+                </div>
+
+                <!-- 服务卡片 2：精致美甲艺术 -->
+                <div class="service-card bg-white p-8 rounded-2xl text-center flex flex-col items-center justify-center">
+                    <img src="https://th.bing.com/th/id/OIP.43b9CpjrPfXRjUO_-LovtwHaE7?rs=1&pid=ImgDetMain" alt="精致美甲艺术图片" class="w-full h-48 object-cover rounded-xl mb-6 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F08EBB/FFFFFF?text=精致美甲艺术图片';">
+                    <h3 class="text-2xl font-semibold mb-3 text-pink-elegance-600">精致美甲艺术</h3>
+                    <p class="text-gray-600 mb-4">
+                        从经典法式到创意彩绘，我们为您打造独一无二的指尖艺术，展现您的个性魅力。
+                    </p>
+                    <button class="btn-primary text-sm px-6 py-2 open-details-btn" data-service-id="nail-art">了解详情</button>
+                </div>
+
+                <!-- 服务卡片 3：时尚美发造型 -->
+                <div class="service-card bg-white p-8 rounded-2xl text-center flex flex-col items-center justify-center">
+                    <img src="https://th.bing.com/th/id/OIP.8WXgPe8lLokoGzBGcU_g6QHaD_?rs=1&pid=ImgDetMain" alt="时尚美发造型图片" class="w-full h-48 object-cover rounded-xl mb-6 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F08EBB/FFFFFF?text=时尚美发造型图片';">
+                    <h3 class="text-2xl font-semibold mb-3 text-pink-elegance-600">时尚美发造型</h3>
+                    <p class="text-gray-600 mb-4">
+                        专业造型师根据您的脸型和气质，打造最适合您的发型，让您自信出众。
+                    </p>
+                    <button class="btn-primary text-sm px-6 py-2 open-details-btn" data-service-id="hair-styling">了解详情</button>
+                </div>
+
+                <!-- 服务卡片 4：专业彩妆定制 -->
+                <div class="service-card bg-white p-8 rounded-2xl text-center flex flex-col items-center justify-center">
+                    <img src="https://th.bing.com/th/id/OIP.MmWDK0-1I24eiI0dBQMsvgHaEK?w=264&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="专业彩妆定制图片" class="w-full h-48 object-cover rounded-xl mb-6 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F08EBB/FFFFFF?text=专业彩妆定制图片';">
+                    <h3 class="text-2xl font-semibold mb-3 text-pink-elegance-600">专业彩妆定制</h3>
+                    <p class="text-gray-600 mb-4">
+                        无论是日常淡妆还是重要场合的精致妆容，我们都能为您呈现完美。
+                    </p>
+                    <button class="btn-primary text-sm px-6 py-2 open-details-btn" data-service-id="makeup-custom">了解详情</button>
+                </div>
+
+                <!-- 服务卡片 5：舒缓身体SPA -->
+                <div class="service-card bg-white p-8 rounded-2xl text-center flex flex-col items-center justify-center">
+                    <img src="https://th.bing.com/th/id/OIP.PSPCZ7mN4pC60Pv1_GxjSAHaHa?w=155&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="舒缓身体SPA图片" class="w-full h-48 object-cover rounded-xl mb-6 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F08EBB/FFFFFF?text=舒缓身体SPA图片';">
+                    <h3 class="text-2xl font-semibold mb-3 text-pink-elegance-600">舒缓身体SPA</h3>
+                    <p class="text-gray-600 mb-4">
+                        通过专业的按摩手法和香薰疗法，放松身心，重拾活力与平衡。
+                    </p>
+                    <button class="btn-primary text-sm px-6 py-2 open-details-btn" data-service-id="body-spa">了解详情</button>
+                </div>
+
+                <!-- 服务卡片 6：自然嫁接睫毛 -->
+                <div class="service-card bg-white p-8 rounded-2xl text-center flex flex-col items-center justify-center">
+                    <img src="https://th.bing.com/th/id/OIP.ez566HJY_bYNzcJiIz9j7gHaEK?rs=1&pid=ImgDetMain" alt="自然嫁接睫毛图片" class="w-full h-48 object-cover rounded-xl mb-6 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F08EBB/FFFFFF?text=自然嫁接睫毛图片';">
+                    <h3 class="text-2xl font-semibold mb-3 text-pink-elegance-600">自然嫁接睫毛</h3>
+                    <p class="text-gray-600 mb-4">
+                        打造浓密卷翘的自然睫毛，让您的双眼电力十足，无需每日妆容。
+                    </p>
+                    <button class="btn-primary text-sm px-6 py-2 open-details-btn" data-service-id="lash-extension">了解详情</button>
+                </div>
+
+                <!-- 新增的服务卡片：美容针剂与微整形 -->
+                <div class="service-card bg-white p-8 rounded-2xl text-center flex flex-col items-center justify-center">
+                    <img src="data:image/webp;base64,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" alt="美容针剂与微整形图片" class="w-full h-48 object-cover rounded-xl mb-6 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F08EBB/FFFFFF?text=美容针剂与微整形图片';" >
+                    <h3 class="text-2xl font-semibold mb-3 text-pink-elegance-600">美容针剂与微整形</h3>
+                    <p class="text-gray-600 mb-4">
+                        专业医师操作，定制化美容针剂和微整形方案，安全有效，助您重塑年轻轮廓。
+                    </p>
+                    <button class="btn-primary text-sm px-6 py-2 open-details-btn" data-service-id="injectables-micro">了解详情</button>
+                </div>
+
+                <!-- 新增的服务卡片：专业纹身艺术 -->
+                <div class="service-card bg-white p-8 rounded-2xl text-center flex flex-col items-center justify-center">
+                    <img src="https://th.bing.com/th/id/OIP.0-aMQzEjmAlr7FaAYKMHfgHaFj?w=228&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="专业纹身艺术图片" class="w-full h-48 object-cover rounded-xl mb-6 shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/600x400/F08EBB/FFFFFF?text=专业纹身艺术图片';" >
+                    <h3 class="text-2xl font-semibold mb-3 text-pink-elegance-600">专业纹身艺术</h3>
+                    <p class="text-gray-600 mb-4">
+                        经验丰富的纹身师，为您量身定制独一无二的艺术图案，展现个性风采。
+                    </p>
+                    <button class="btn-primary text-sm px-6 py-2 open-details-btn" data-service-id="tattoo-art">了解详情</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于我们 (About Us Section) -->
+        <section id="about" class="bg-pink-elegance-50 py-16 px-4">
+            <div class="container mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://th.bing.com/th/id/OIP.bvMQtaQ_ke0HPQ6cP5dg8QHaEK?w=289&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="沙龙内部图片" class="rounded-3xl shadow-xl transform hover:scale-[1.01] transition-transform duration-300" onerror="this.onerror=null;this.src='https://placehold.co/800x600/F08EBB/FFFFFF?text=沙龙内部图片';">
+                </div>
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h2 class="text-4xl font-bold mb-6 text-gray-800 relative pb-4">
+                        <span class="relative z-10">关于 YY美业</span>
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-24 h-1 bg-gradient-to-r from-gold-500 to-pink-elegance-500 rounded-full"></span>
+                    </h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                        YY美业成立于<strong class="text-pink-elegance-600">2019年</strong>，秉承“艺术与美”的理念，致力于为每一位顾客提供个性化、高品质的美容服务。我们相信，美不仅仅是外在的呈现，更是内在自信的焕发。
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        我们拥有一支经验丰富、技艺精湛的专业团队，以及国际领先的美容设备和产品。在这里，您将体验到前所未有的放松与愉悦，让身心得到完美的平衡与升华。
+                    </p>
+                    <a href="https://t.me/babyyimei" target="_blank" class="btn-primary inline-block mt-8">预约咨询</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 专业团队 (Team Section) -->
+        <section id="team" class="container mx-auto py-16 px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 relative pb-4">
+                <span class="relative z-10">我们的专业团队</span>
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-pink-elegance-500 to-gold-500 rounded-full"></span>
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 团队成员 1 -->
+                <div class="text-center p-6 bg-white rounded-2xl shadow-md">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=256&h=256&auto=format&fit=facearea&facepad=2" alt="团队成员 Emily" class="staff-avatar mx-auto mb-4" onerror="this.onerror=null;this.src='https://placehold.co/120x120/F08EBB/FFFFFF?text=团队成员1';">
+                    <h3 class="text-xl font-semibold text-pink-elegance-600 mb-2">Emily - 首席美发师</h3>
+                    <p class="text-gray-600 text-sm">拥有十年美发经验，擅长各类时尚造型和染烫。</p>
+                    <div class="mt-4 flex justify-center space-x-3 items-center">
+                        <a href="https://www.instagram.com/yybeauty" target="_blank" class="text-gray-500 hover:text-pink-elegance-500 transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+                        <span class="text-gray-500 text-sm flex items-center"><i class="fab fa-weixin mr-1"></i> q32224745</span>
+                    </div>
+                </div>
+                <!-- 团队成员 2 -->
+                <div class="text-center p-6 bg-white rounded-2xl shadow-md">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=256&h=256&auto=format&fit=facearea&facepad=2" alt="团队成员 Sophia" class="staff-avatar mx-auto mb-4" onerror="this.onerror=null;this.src='https://placehold.co/120x120/F08EBB/FFFFFF?text=团队成员2';">
+                    <h3 class="text-xl font-semibold text-pink-elegance-600 mb-2">Sophia - 高级美容师</h3>
+                    <p class="text-gray-600 text-sm">专精皮肤管理和抗衰老疗程，用专业为您守护肌肤。</p>
+                    <div class="mt-4 flex justify-center space-x-3 items-center">
+                        <a href="https://www.instagram.com/yybeauty" target="_blank" class="text-gray-500 hover:text-pink-elegance-500 transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+                        <span class="text-gray-500 text-sm flex items-center"><i class="fab fa-weixin mr-1"></i> q32224745</span>
+                    </div>
+                </div>
+                <!-- 团队成员 3 -->
+                <div class="text-center p-6 bg-white rounded-2xl shadow-md">
+                    <img src="https://images.unsplash.com/photo-1579783483458-83d021add341?q=80&w=256&h=256&auto=format&fit=facearea&facepad=2" alt="团队成员 Jessica" class="staff-avatar mx-auto mb-4" onerror="this.onerror=null;this.src='https://placehold.co/120x120/F08EBB/FFFFFF?text=团队成员3';">
+                    <h3 class="text-xl font-semibold text-pink-elegance-600 mb-2">Jessica - 资深美甲师</h3>
+                    <p class="text-gray-600 text-sm">创意无限，让您的指尖成为艺术品，拥有独家定制美甲。</p>
+                    <div class="mt-4 flex justify-center space-x-3 items-center">
+                        <a href="https://www.instagram.com/yybeauty" target="_blank" class="text-gray-500 hover:text-pink-elegance-500 transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+                        <span class="text-gray-500 text-sm flex items-center"><i class="fab fa-weixin mr-1"></i> q32224745</span>
+                    </div>
+                </div>
+                <!-- 团队成员 4 -->
+                <div class="text-center p-6 bg-white rounded-2xl shadow-md">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=256&h=256&auto=format&fit=facearea&facepad=2" alt="团队成员 Chloe" class="staff-avatar mx-auto mb-4" onerror="this.onerror=null;this.src='https://placehold.co/120x120/F08EBB/FFFFFF?text=团队成员4';">
+                    <h3 class="text-xl font-semibold text-pink-elegance-600 mb-2">Chloe - 美妆顾问</h3>
+                    <p class="text-gray-600 text-sm">为您提供专业的彩妆建议和定制服务，凸显您的独特气质。</p>
+                    <div class="mt-4 flex justify-center space-x-3 items-center">
+                        <a href="https://www.instagram.com/yybeauty" target="_blank" class="text-gray-500 hover:text-pink-elegance-500 transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+                        <span class="text-gray-500 text-sm flex items-center"><i class="fab fa-weixin mr-1"></i> q32224745</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系我们 (Contact Section) -->
+        <section id="contact" class="bg-gradient-to-r from-pink-elegance-100 to-pink-elegance-200 py-16 px-4">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 relative pb-4">
+                    <span class="relative z-10">联系我们</span>
+                    <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-gold-500 to-pink-elegance-500 rounded-full"></span>
+                </h2>
+                <div class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/2">
+                        <form id="contactForm" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 font-semibold mb-2">您的姓名</label>
+                                <input type="text" id="name" name="name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-elegance-300" placeholder="请输入您的姓名" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-700 font-semibold mb-2">电子邮箱</label>
+                                <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-elegance-300" placeholder="请输入您的电子邮箱" required>
+                            </div>
+                            <div>
+                                <label for="message" class="block text-gray-700 font-semibold mb-2">您的消息</label>
+                                <textarea id="message" name="message" rows="5" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-elegance-300" placeholder="您想对我们说什么？" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary w-full py-3">发送消息</button>
+                        </form>
+                    </div>
+                    <div class="md:w-1/2 text-gray-700">
+                        <h3 class="text-2xl font-semibold mb-4 text-pink-elegance-600">我们的信息</h3>
+                        <p class="mb-3"><i class="fas fa-map-marker-alt text-pink-elegance-500 mr-3"></i>地址：缅甸掸邦北部腊戌</p>
+                        <p class="mb-3"><i class="fas fa-phone-alt text-pink-elegance-500 mr-3"></i>电话：09692101967</p>
+                        <p class="mb-3"><i class="fas fa-envelope text-pink-elegance-500 mr-3"></i>邮箱：syh438869@gmail.com</p>
+                        <p class="mb-3"><i class="fas fa-clock text-pink-elegance-500 mr-3"></i>营业时间：周一至周日 8:00 - 20:00</p>
+                        <p class="mb-3"><i class="fab fa-weixin text-pink-elegance-500 mr-3"></i>微信：q32224745</p>
+                        <p class="mb-3"><i class="fab fa-facebook-f text-pink-elegance-500 mr-3"></i>Facebook：09692101967</p>
+                        <p class="mb-3"><i class="fab fa-weibo text-pink-elegance-500 mr-3"></i>微博：15159507712</p>
+                        <p class="mb-3"><i class="fab fa-telegram-plane text-pink-elegance-500 mr-3"></i>Telegram：<a href="https://t.me/babyyimei" target="_blank" class="text-pink-elegance-500 hover:underline">@babyyimei</a></p>
+
+                        <!-- 地图嵌入 -->
+                        <div class="mt-6 rounded-lg overflow-hidden shadow-md">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14878.718362635956!2d97.7126131!3d22.9565551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30623d3878b2745f%3A0xb35a39626e2e2a0!2sLashio%2C%20Myanmar%20(Burma)!5e0!3m2!1sen!2smm!4v1700000000000!5m2=1sen!2smm"
+                                width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container mx-auto text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.facebook.com/09692101967" target="_blank" class="text-white hover:text-gold-500 transition-colors"><i class="fab fa-facebook-f text-2xl"></i></a>
+                <a href="https://www.instagram.com/yybeauty" target="_blank" class="text-white hover:text-gold-500 transition-colors"><i class="fab fa-instagram text-2xl"></i></a>
+                <a href="https://t.me/babyyimei" target="_blank" class="text-white hover:text-gold-500 transition-colors"><i class="fab fa-telegram-plane text-2xl"></i></a>
+                <a href="https://weibo.com/u/15159507712" target="_blank" class="text-white hover:text-gold-500 transition-colors"><i class="fab fa-weibo text-2xl"></i></a>
+                <span class="text-white text-2xl"><i class="fab fa-weixin"></i></span>
+            </div>
+            <p class="text-sm">&copy; 2023 YY美业. 版权所有.</p>
+            <p class="text-xs mt-1">地址：缅甸腊戌 | 电话：09692101967 | 微信：q32224745</p>
+        </div>
+    </footer>
+
+    <!-- 服务详情模态窗口 -->
+    <div id="serviceDetailModal" class="modal fixed inset-0 flex items-center justify-center hidden">
+        <div class="modal-content">
+            <span class="modal-close" id="closeServiceModal">&times;</span>
+            <h3 id="modalTitle" class="text-3xl font-bold mb-4 text-pink-elegance-600"></h3>
+            <p id="modalIntro" class="text-lg text-gray-700 mb-6"></p>
+            <h4 class="text-xl font-semibold mb-3 text-gold-600">我们的优势：</h4>
+            <ul id="modalAdvantages" class="list-disc list-inside text-gray-600 mb-6 space-y-2"></ul>
+            <h4 class="text-xl font-semibold mb-3 text-gold-600">服务说明：</h4>
+            <p id="modalExplanation" class="text-gray-600 leading-relaxed"></p>
+        </div>
+    </div>
+
+    <!-- AI 美容顾问按钮 -->
+    <div id="aiChatButton" class="ai-button">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <!-- AI 聊天窗口 -->
+    <div id="aiChatWindow" class="ai-chat-window">
+        <div class="chat-header">
+            <span>AI 美容顾问</span>
+            <button id="closeChatBtn" class="chat-close-btn">&times;</button>
+        </div>
+        <div class="flex flex-col p-4">
+            <!-- 新增的个性化美妆建议按钮 -->
+            <button id="getBeautyAdviceBtn" class="btn-primary-small">✨ 获取个性化美妆建议</button>
+        </div>
+        <div id="chatMessages" class="chat-messages">
+            <div class="chat-message ai">您好！我是您的AI美容顾问，有什么可以帮助您的吗？</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="输入您的问题...">
+            <button id="sendChatBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+
+    <!-- JavaScript for header scroll effect, mobile menu, form submission and new features -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('main-header');
+            let lastScrollY = window.scrollY;
+
+            // Header scroll effect: 鼠标滚动时隐藏/显示顶部导航栏
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > lastScrollY && window.scrollY > 100) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+                lastScrollY = window.scrollY;
+            });
+
+            // Mobile menu toggle: 移动端菜单开关
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu on item click: 点击移动端菜单项时关闭菜单
+            mobileMenu.querySelectorAll('a').forEach(item => {
+                item.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Smooth scroll and active nav item highlight: 平滑滚动和导航高亮
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelectorAll('.nav-item-box').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    this.classList.add('active');
+
+                    // 确保 href 不为空或仅为 '#'
+                    const targetId = this.getAttribute('href');
+                    if (targetId && targetId !== '#') {
+                        document.querySelector(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    } else if (targetId === '#') {
+                        // 如果 href 是 #，则滚动到页面顶部或 hero 部分
+                        document.querySelector('#hero').scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Set active nav item on page load based on URL hash: 页面加载时根据URL哈希设置活动导航项
+            const hash = window.location.hash;
+            if (hash) {
+                const activeLink = document.querySelector(`nav a[href="${hash}"]`);
+                if (activeLink) {
+                    document.querySelectorAll('.nav-item-box').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    activeLink.classList.add('active');
+                }
+            } else {
+                document.querySelector('nav a[href="#hero"]').classList.add('active');
+            }
+
+            // Handle contact form submission: 处理联系表单提交
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // 阻止默认表单提交行为
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+
+                // Construct mailto link: 构建 mailto 链接
+                const recipientEmail = 'syh438869@gmail.com';
+                const subject = `来自 YY美业网站的咨询 - ${name}`;
+                const body = `姓名: ${name}\n邮箱: ${email}\n\n消息:\n${message}`;
+
+                const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+                window.location.href = mailtoLink; // 打开用户的邮件客户端
+
+                contactForm.reset(); // 清空表单
+
+                // Inform the user that their email client will open: 通知用户邮件客户端将打开
+                const messageBox = document.createElement('div');
+                messageBox.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100]';
+                messageBox.innerHTML = `
+                    <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-sm">
+                        <p class="text-lg font-semibold mb-4 text-gray-800">消息发送提示</p>
+                        <p class="text-gray-600 mb-6">您的消息已准备好通过邮件发送。请在您的邮件客户端中完成发送。</p>
+                        <button class="btn-primary" onclick="this.parentElement.parentElement.remove()">确定</button>
+                    </div>
+                `;
+                document.body.appendChild(messageBox);
+            });
+
+
+            // --- 服务详情模态窗口逻辑 ---
+            const serviceDetailModal = document.getElementById('serviceDetailModal');
+            const closeServiceModalBtn = document.getElementById('closeServiceModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalIntro = document.getElementById('modalIntro');
+            const modalAdvantages = document.getElementById('modalAdvantages');
+            const modalExplanation = document.getElementById('modalExplanation');
+
+            // 服务详情数据，可根据需要修改或扩展
+            const serviceDetailsData = {
+                'skin-care': {
+                    title: '奢华皮肤护理',
+                    intro: '通过深度定制的皮肤护理，重塑您的肌肤光彩。',
+                    advantages: [
+                        '量身定制：根据您的肤质和需求提供专属方案。',
+                        '尖端科技：引入国际领先的美容仪器和技术。',
+                        '天然产品：使用纯净、高效的天然护肤品。',
+                        '深层滋养：促进肌肤细胞再生，改善肤色不均。'
+                    ],
+                    explanation: '我们的奢华皮肤护理流程包括：专业肌肤分析、深层清洁、去角质、精华导入、定制面膜、以及舒缓按摩。每一步都旨在为您的肌肤提供极致的呵护，让您感受到前所未有的水润、紧致与光泽。'
+                },
+                'nail-art': {
+                    title: '精致美甲艺术',
+                    intro: '用指尖的艺术，展现您的独特魅力。',
+                    advantages: [
+                        '创意无限：提供最新潮流与经典款式的结合。',
+                        '健康美甲：选用环保、无毒的优质甲油。',
+                        '个性定制：根据您的喜好和场合打造专属图案。',
+                        '持久闪耀：专业技术确保美甲效果持久亮丽。'
+                    ],
+                    explanation: '我们提供凝胶美甲、手绘彩绘、法式美甲、延长美甲等多种服务。我们的美甲师精通各类技巧，能将您的想法变为现实，让您的指尖成为一道亮丽的风景线。'
+                },
+                'hair-styling': {
+                    title: '时尚美发造型',
+                    intro: '告别平庸，焕然新生，从“头”开始展现您的时尚态度。',
+                    advantages: [
+                        '专业造型：根据脸型、气质和场合提供最佳发型建议。',
+                        '潮流趋势：紧跟时尚前沿，打造当季热门造型。',
+                        '健康染烫：采用温和配方，最大程度减少发质损伤。',
+                        '个性定制：从剪裁到色彩，全程为您量身打造。'
+                    ],
+                    explanation: '我们的美发服务涵盖洗剪吹、染发、烫发、护理等。无论是日常通勤发型，还是晚宴派对造型，我们都能为您打造出最能彰显您个性的完美发型并提供专业的日常打理建议。'
+                },
+                'makeup-custom': {
+                    title: '专业彩妆定制',
+                    intro: '为您的重要时刻，定制专属的完美妆容。',
+                    advantages: [
+                        '经验丰富：资深化妆师团队，掌握各类妆容技巧。',
+                        '高端产品：使用国际一线彩妆品牌，确保妆效和舒适度。',
+                        '贴合需求：根据肤质、场合和个人喜好提供定制服务。',
+                        '持久自然：打造服帖、持久且自然的妆容效果。'
+                    ],
+                    explanation: '我们提供日常通勤妆、商务妆、新娘妆、派对妆等多种专业彩妆服务。化妆师会与您充分沟通，了解您的需求，并通过精湛的技艺，让您的优点尽显，自信闪耀。'
+                },
+                'body-spa': {
+                    title: '舒缓身体SPA',
+                    intro: '放松身心，舒缓疲惫，享受一场身心灵的奢华之旅。',
+                    advantages: [
+                        '专业手法：经验丰富的理疗师，手法娴熟。',
+                        '香薰疗法：选用天然植物精油，助您深度放松。',
+                        '定制方案：根据您的需求选择不同的SPA套餐。',
+                        '焕活身心：缓解肌肉疲劳，改善睡眠质量，提升活力。'
+                    ],
+                    explanation: '我们的身体SPA包括全身按摩、香薰疗法、身体磨砂和滋养敷膜。在宁静舒适的环境中，配合轻柔的音乐和专业的手法，帮助您释放压力，恢复身体的平衡与和谐。'
+                },
+                'lash-extension': {
+                    title: '自然嫁接睫毛',
+                    intro: '轻松拥有浓密卷翘的睫毛，让双眼瞬间放大。',
+                    advantages: [
+                        '自然无感：采用轻盈材质，嫁接后无异物感。',
+                        '持久卷翘：专业技术确保睫毛持久保持完美弧度。',
+                        '安全卫生：严格遵守卫生标准，保障您的眼部健康。',
+                        '告别睫毛膏：省去每日化妆烦恼，节省宝贵时间。'
+                    ],
+                    explanation: '我们提供单根嫁接、多根嫁接等多种睫毛款式选择，根据您的眼型和需求，打造最适合您的睫毛效果。嫁接过程舒适安全，让您轻松拥有迷人电眼。'
+                },
+                'injectables-micro': {
+                    title: '美容针剂与微整形',
+                    intro: '在专业医师指导下，通过先进的美容针剂和微整形技术，安全高效地实现面部年轻化和轮廓优化。',
+                    advantages: [
+                        '专业医师：由经验丰富的注册医师操作，确保安全。',
+                        '个性化方案：根据您的面部结构和需求，定制最适合的方案。',
+                        '高端产品：选用国际认证、安全有效的美容针剂产品。',
+                        '效果自然：注重自然美感，避免过度或僵硬效果。'
+                    ],
+                    explanation: '我们提供多种美容针剂注射服务，如玻尿酸填充、肉毒素除皱等。同时，也包括微整形项目，旨在通过非手术方式，改善面部细纹、皱纹、提升轮廓、丰盈唇部等，让您在短时间内恢复年轻光彩。所有操作均在严格的医疗标准下进行。'
+                },
+                'tattoo-art': {
+                    title: '专业纹身艺术',
+                    intro: '让身体成为画布，通过专业纹身艺术，表达您的独特个性和故事。',
+                    advantages: [
+                        '原创设计：提供独特的原创纹身图案设计。',
+                        '经验丰富：资深纹身师，精湛技艺，确保细节完美。',
+                        '安全卫生：严格遵守消毒标准，使用一次性耗材。',
+                        '持久美观：采用优质色料，确保图案色彩持久鲜艳。'
+                    ],
+                    explanation: '我们提供各种风格的纹身服务，无论是小清新图案、写实风格、传统图案，还是个性化定制，我们的纹身师都能根据您的想法和要求，为您创作出独一无二的艺术作品。我们致力于打造一个安全、舒适、充满艺术氛围的纹身体验。'
+                }
+            };
+
+            // 为所有“了解详情”按钮添加事件监听器
+            document.querySelectorAll('.open-details-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const serviceId = this.dataset.serviceId;
+                    const details = serviceDetailsData[serviceId];
+
+                    if (details) {
+                        modalTitle.textContent = details.title;
+                        modalIntro.textContent = details.intro;
+                        modalExplanation.textContent = details.explanation;
+
+                        modalAdvantages.innerHTML = ''; // 清除之前的优势列表
+                        details.advantages.forEach(advantage => {
+                            const li = document.createElement('li');
+                            li.textContent = advantage;
+                            modalAdvantages.appendChild(li);
+                        });
+
+                        serviceDetailModal.classList.add('show');
+                        serviceDetailModal.classList.remove('hidden');
+                    }
+                });
+            });
+
+            // 关闭模态窗口的事件监听器
+            closeServiceModalBtn.addEventListener('click', function() {
+                serviceDetailModal.classList.add('hidden');
+                serviceDetailModal.classList.remove('show');
+            });
+
+            // 点击模态窗口外部区域关闭它
+            serviceDetailModal.addEventListener('click', function(event) {
+                if (event.target === serviceDetailModal) {
+                    serviceDetailModal.classList.add('hidden');
+                    serviceDetailModal.classList.remove('show');
+                }
+            });
+
+
+            // --- AI 美容顾问逻辑 ---
+            const aiChatButton = document.getElementById('aiChatButton');
+            const aiChatWindow = document.getElementById('aiChatWindow');
+            const closeChatBtn = document.getElementById('closeChatBtn');
+            const chatMessages = document.getElementById('chatMessages');
+            const chatInput = document.getElementById('chatInput');
+            const sendChatBtn = document.getElementById('sendChatBtn');
+            const getBeautyAdviceBtn = document.getElementById('getBeautyAdviceBtn'); // 获取个性化美妆建议按钮
+
+            // AI交互模式：'general' (通用聊天), 'awaiting_beauty_details' (等待个性化美妆建议的细节)
+            let aiInteractionMode = 'general';
+            // 聊天历史，用于维持Gemini API的上下文
+            let chatHistory = [{ role: "model", parts: [{ text: "您好！我是您的AI美容顾问，有什么可以帮助您的吗？" }] }];
+
+            // Toggle chat window visibility
+            aiChatButton.addEventListener('click', () => {
+                aiChatWindow.classList.toggle('show');
+            });
+
+            // 关闭聊天窗口
+            closeChatBtn.addEventListener('click', () => {
+                aiChatWindow.classList.remove('show');
+            });
+
+            // 发送消息（点击发送按钮或按回车键）
+            sendChatBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // 点击“获取个性化美妆建议”按钮
+            getBeautyAdviceBtn.addEventListener('click', () => {
+                // 如果AI已经在处理其他请求，则不响应
+                if (aiInteractionMode !== 'general') {
+                    appendMessage('请先完成当前对话或等待AI回复。', 'ai');
+                    return;
+                }
+
+                // AI提问，并设置AI交互模式为等待详情
+                const initialPrompt = '好的，为了提供更个性化的建议，请告诉我您的肤质（例如：干性、油性、混合性、敏感性）以及主要关注的问题（例如：痘痘、抗衰老、补水、暗沉）。';
+                appendMessage(initialPrompt, 'ai');
+                // 将AI的提问添加到聊天历史
+                chatHistory.push({ role: "model", parts: [{ text: initialPrompt }] });
+                aiInteractionMode = 'awaiting_beauty_details';
+            });
+
+
+            // 发送消息的核心函数
+            async function sendMessage() {
+                const userMessage = chatInput.value.trim();
+                if (!userMessage) return;
+
+                // 显示用户消息
+                appendMessage(userMessage, 'user');
+                chatInput.value = '';
+
+                // 将用户消息添加到完整聊天历史
+                chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
+
+                // 显示加载指示器
+                const loadingIndicator = document.createElement('div');
+                loadingIndicator.className = 'chat-message ai chat-loading-indicator';
+                loadingIndicator.textContent = 'AI 正在思考...';
+                chatMessages.appendChild(loadingIndicator);
+                chatMessages.scrollTop = chatMessages.scrollHeight; // 滚动到底部
+
+                let payloadContents = [...chatHistory]; // 默认使用完整聊天历史作为API的输入
+
+                // 如果当前模式是等待美妆建议详情，则构建一个针对性的提示
+                if (aiInteractionMode === 'awaiting_beauty_details') {
+                    // 构建一个专门用于生成美妆建议的prompt
+                    payloadContents = [
+                        { role: "user", parts: [{ text: `根据用户提供的信息生成一个个性化美妆建议：用户肤质和关注点是：“${userMessage}”。请生成一个简短的护肤或美妆建议。` }] }
+                    ];
+                    aiInteractionMode = 'general'; // 恢复通用聊天模式
+                }
+
+                try {
+                    const payload = { contents: payloadContents };
+                    const apiKey = ""; // Canvas将在运行时自动提供API密钥
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    // 确保等待 JSON 解析完成
+                    const result = await response.json();
+                    
+                    // 移除加载指示器
+                    chatMessages.removeChild(loadingIndicator);
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const aiResponse = result.candidates[0].content.parts[0].text;
+                        appendMessage(aiResponse, 'ai');
+                        chatHistory.push({ role: "model", parts: [{ text: aiResponse }] }); // 将AI响应添加到完整历史
+                    } else {
+                        appendMessage('抱歉，AI未能生成有效回复。', 'ai');
+                    }
+                } catch (error) {
+                    console.error('Error calling Gemini API:', error);
+                    // 如果在生成建议时发生错误，且模式仍然是等待详情，则重置模式
+                    if (chatMessages.contains(loadingIndicator)) {
+                        chatMessages.removeChild(loadingIndicator);
+                    }
+                    appendMessage('抱歉，与AI通信时发生错误。请稍后再试。', 'ai');
+                    if (aiInteractionMode === 'awaiting_beauty_details') {
+                        aiInteractionMode = 'general';
+                    }
+                }
+            }
+
+            // 在聊天窗口中添加消息
+            function appendMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chat-message ${sender}`;
+                messageDiv.textContent = text;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight; // 自动滚动到最新消息
+            }
+        });
+
+        // --- Three.js 动态背景模拟 ---
+        window.onload = function() {
+            const canvas = document.getElementById('butterfly-canvas');
+            const sizes = {
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                alpha: true
+            });
+            renderer.setSize(sizes.width, sizes.height);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // 灯光
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); // 柔和的环境光
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+            directionalLight.position.set(10, 10, 10);
+            scene.add(directionalLight);
+
+            // 物体属性和颜色
+            const numObjects = 40; // 进一步增加物体数量
+            const flyingObjects = [];
+            const objectTypes = ['butterfly', 'bee', 'petal'];
+
+            // 与页面主题相符的柔和颜色
+            const elegantColors = [
+                0xF08EBB, /* 主粉色 */
+                0xF7BBDA, /* 浅粉 */
+                0xFCE8F0, /* 极浅粉 */
+                0xD4AF37, /* 金色 */
+                0xFFD700, /* 亮金色 */
+                0xFFE0E0, /* 浅玫瑰色 */
+                0xFFF0F5  /* 薰衣草粉 */
+            ];
+
+            // 创建不同类型的飞行物体几何体
+            function createFlyingObject(type) {
+                const objectGroup = new THREE.Group();
+                const randomColor = elegantColors[Math.floor(Math.random() * elegantColors.length)];
+                const material = new THREE.MeshPhongMaterial({
+                    color: randomColor,
+                    side: THREE.DoubleSide,
+                    shininess: 30
+                });
+
+                if (type === 'butterfly') {
+                    // 更逼真的蝴蝶翅膀形状 (使用bezierCurveTo)
+                    const wingShape = new THREE.Shape();
+                    wingShape.moveTo(0, 0);
+                    // 调整控制点，使翅膀更像真实蝴蝶的曲线，增加复杂性
+                    wingShape.bezierCurveTo(0.3, 0.1, 0.7, 0.6, 0.5, 1);
+                    wingShape.bezierCurveTo(0.2, 0.9, -0.3, 0.9, -0.5, 0.5); // 下半部分曲线
+                    wingShape.bezierCurveTo(-0.7, 0.2, -0.3, 0.1, 0, 0); // 回到起点
+
+                    const extrudeSettings = {
+                        steps: 1,
+                        depth: 0.02, // 翅膀厚度
+                        bevelEnabled: false
+                    };
+                    const wingGeometry = new THREE.ExtrudeGeometry(wingShape, extrudeSettings);
+                    wingGeometry.scale(0.8, 0.8, 0.8); // 调整大小
+
+                    // 身体
+                    const bodyGeometry = new THREE.CylinderGeometry(0.08, 0.08, 0.7, 8); // 稍微粗一点长一点
+                    const bodyMesh = new THREE.Mesh(bodyGeometry, material);
+                    bodyMesh.rotation.x = Math.PI / 2; // 平躺
+
+                    // 触角
+                    const antennaGeometry = new THREE.CylinderGeometry(0.01, 0.01, 0.3, 4);
+                    const antennaMaterial = new THREE.MeshBasicMaterial({ color: 0x333333 });
+                    const antenna1 = new THREE.Mesh(antennaGeometry, antennaMaterial);
+                    antenna1.position.set(0.1, 0.3, 0.2); // 调整位置
+                    antenna1.rotation.z = Math.PI / 6; // 稍微倾斜
+                    objectGroup.add(antenna1);
+
+                    const antenna2 = new THREE.Mesh(antennaGeometry, antennaMaterial);
+                    antenna2.position.set(-0.1, 0.3, 0.2); // 调整位置
+                    antenna2.rotation.z = -Math.PI / 6; // 稍微倾斜
+                    objectGroup.add(antenna2);
+
+
+                    objectGroup.add(bodyMesh);
+
+                    const leftWing = new THREE.Mesh(wingGeometry.clone(), material);
+                    leftWing.position.set(0, 0, 0); // 相对身体中心
+                    leftWing.rotation.y = Math.PI / 2; // 初始面向正确
+                    objectGroup.add(leftWing);
+
+                    const rightWing = new THREE.Mesh(wingGeometry.clone(), material);
+                    rightWing.position.set(0, 0, 0);
+                    rightWing.scale.x = -1; // 镜像翅膀
+                    rightWing.rotation.y = Math.PI / 2; // 初始面向正确
+                    objectGroup.add(rightWing);
+
+                    // 确保翅膀在 Three.js Group 中可以被单独访问
+                    objectGroup.userData.leftWing = leftWing;
+                    objectGroup.userData.rightWing = rightWing;
+
+                } else if (type === 'bee') {
+                    // 蜜蜂身体：由多个球体组成，模拟条纹
+                    const bodySegments = [];
+                    const segmentColors = [0xffd700, 0x000000]; // 金色和黑色
+                    for (let j = 0; j < 4; j++) {
+                        const segment = new THREE.Mesh(new THREE.SphereGeometry(0.2 - j * 0.03, 16, 16), new THREE.MeshPhongMaterial({ color: segmentColors[j % 2] }));
+                        segment.position.x = j * 0.35; // 稍微拉开一点
+                        bodySegments.push(segment);
+                    }
+                    objectGroup.add(...bodySegments);
+
+                    // 蜜蜂翅膀：透明平面
+                    const wingGeometry = new THREE.PlaneGeometry(0.5, 0.3);
+                    const wingMaterial = new THREE.MeshPhongMaterial({
+                        color: 0xcccccc,
+                        transparent: true,
+                        opacity: 0.6,
+                        side: THREE.DoubleSide
+                    });
+                    const beeWing1 = new THREE.Mesh(wingGeometry, wingMaterial);
+                    beeWing1.position.set(0.1, 0.2, 0);
+                    beeWing1.rotation.y = Math.PI / 2; // 竖直
+                    objectGroup.add(beeWing1);
+
+                    const beeWing2 = new THREE.Mesh(wingGeometry.clone(), wingMaterial);
+                    beeWing2.position.set(0.1, -0.2, 0);
+                    beeWing2.rotation.y = Math.PI / 2; // 竖直
+                    objectGroup.add(beeWing2);
+
+                    objectGroup.scale.set(0.5, 0.5, 0.5); // 调整蜜蜂大小
+                    objectGroup.rotation.y = Math.PI / 2; // 默认朝向
+                    objectGroup.userData.wing1 = beeWing1; // 存储翅膀引用
+                    objectGroup.userData.wing2 = beeWing2; // 存储翅膀引用
+
+                } else if (type === 'petal') {
+                    // 花瓣：简单平面，略微弯曲
+                    const petalShape = new THREE.Shape();
+                    petalShape.ellipse(0, 0, 0.4, 0.8, 0, Math.PI * 2); // 椭圆形状
+
+                    const extrudeSettings = {
+                        steps: 1,
+                        depth: 0.01,
+                        bevelEnabled: false
+                    };
+                    const petalGeometry = new THREE.ExtrudeGeometry(petalShape, extrudeSettings);
+                    petalGeometry.rotateX(Math.PI / 2); // 让花瓣平面朝向 Z 轴
+                    petalGeometry.scale(0.5, 0.5, 0.5); // 调整大小
+
+                    const petalMesh = new THREE.Mesh(petalGeometry, material);
+                    objectGroup.add(petalMesh);
+
+                    // 花瓣的运动更像是飘落，所以不需要 targetPosition 和 wingSpeed
+                    objectGroup.rotation.y = Math.random() * Math.PI * 2; // 随机初始旋转
+                    objectGroup.userData.rotationSpeed = (Math.random() - 0.5) * 0.005; // 缓慢自旋
+                }
+
+                return objectGroup;
+            }
+
+            // 创建物体
+            for (let i = 0; i < numObjects; i++) {
+                const type = objectTypes[Math.floor(Math.random() * objectTypes.length)];
+                const obj = createFlyingObject(type);
+                obj.userData.type = type; // 存储类型以便动画区分
+
+                // 随机初始位置
+                obj.position.x = (Math.random() - 0.5) * 60;
+                obj.position.y = (Math.random() - 0.5) * 40;
+                obj.position.z = (Math.random() - 0.5) * 50;
+
+                if (type !== 'petal') { // 只有蝴蝶和蜜蜂才有飞行目标和拍打翅膀
+                    obj.userData.targetPosition = new THREE.Vector3(
+                        (Math.random() - 0.5) * 60,
+                        (Math.random() - 0.5) * 40,
+                        (Math.random() - 0.5) * 50
+                    );
+                    obj.userData.speed = (type === 'bee' ? 0.0015 : 0.0005) + Math.random() * (type === 'bee' ? 0.001 : 0.0005); // 蜜蜂稍快，蝴蝶更慢，整体进一步放慢
+                    obj.userData.wingSpeed = (type === 'bee' ? 1.0 : 0.6) + Math.random() * (type === 'bee' ? 0.5 : 0.3); // 翅膀拍动速度
+                    obj.userData.wingOffset = Math.random() * Math.PI; // 拍动偏移
+                } else { // 花瓣的特殊属性
+                    obj.userData.driftSpeedY = 0.0015 + Math.random() * 0.0015; // 飘落速度进一步放慢
+                }
+
+                flyingObjects.push(obj);
+                scene.add(obj);
+            }
+
+            // 摄像机定位 (调整以更好地观看背景元素)
+            camera.position.z = 40; // 更远以看到更多物体
+            camera.position.y = 5;
+            camera.lookAt(0, 0, 0);
+
+            // Three.js 的响应式设计
+            window.addEventListener('resize', () => {
+                sizes.width = window.innerWidth;
+                sizes.height = window.innerHeight;
+
+                camera.aspect = sizes.width / sizes.height;
+                camera.updateProjectionMatrix();
+
+                renderer.setSize(sizes.width, sizes.height);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            });
+
+            // 鼠标交互 (基本轨道控制)
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+            const rotationSpeed = 0.001; // 更慢的旋转速度
+
+            canvas.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+
+                const deltaX = e.clientX - previousMousePosition.x;
+                const deltaY = e.clientY - previousMousePosition.y;
+
+                camera.rotation.y += deltaX * rotationSpeed;
+                camera.rotation.x += deltaY * rotationSpeed;
+                camera.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, camera.rotation.x));
+
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+
+            // 触摸事件 (类似于鼠标控制)
+            canvas.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    isDragging = true;
+                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
+            });
+
+            canvas.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+
+            canvas.addEventListener('touchmove', (e) => {
+                if (!isDragging || e.touches.length !== 1) return;
+
+                const deltaX = e.touches[0].clientX - previousMousePosition.x;
+                const deltaY = e.touches[0].clientY - previousMousePosition.y;
+
+                camera.rotation.y += deltaX * rotationSpeed * 2; // 触摸时稍微加快速度
+                camera.rotation.x += deltaY * rotationSpeed * 2;
+                camera.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, camera.rotation.x));
+
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            });
+
+
+            // 动画循环
+            const clock = new THREE.Clock();
+            const animate = () => {
+                const elapsedTime = clock.getElapsedTime();
+
+                // 动画飞行物体
+                flyingObjects.forEach((obj) => {
+                    if (obj.userData.type === 'petal') {
+                        // 花瓣飘落和随机旋转
+                        obj.position.y -= obj.userData.driftSpeedY; // 持续下落
+                        obj.rotation.y += obj.userData.rotationSpeed; // 缓慢自旋
+                        obj.rotation.z += obj.userData.rotationSpeed * 0.5; // 稍微倾斜旋转
+
+                        // 如果花瓣落出视线，重置到顶部
+                        if (obj.position.y < -30) {
+                            obj.position.y = 30;
+                            obj.position.x = (Math.random() - 0.5) * 60;
+                            obj.position.z = (Math.random() - 0.5) * 50;
+                        }
+
+                    } else { // 蝴蝶和蜜蜂
+                        // 平滑地朝目标移动
+                        obj.position.lerp(obj.userData.targetPosition, obj.userData.speed);
+
+                        // 如果物体到达目标，设置一个新的随机目标
+                        if (obj.position.distanceTo(obj.userData.targetPosition) < 2) { // 稍微增加距离阈值
+                            obj.userData.targetPosition.set(
+                                (Math.random() - 0.5) * 60,
+                                (Math.random() - 0.5) * 40,
+                                (Math.random() - 0.5) * 50
+                            );
+                        }
+
+                        // 让物体面向移动方向
+                        const direction = new THREE.Vector3().subVectors(obj.userData.targetPosition, obj.position).normalize();
+                        const currentLookAt = new THREE.Vector3(0, 0, 1).applyQuaternion(obj.quaternion); // 获取当前朝向
+                        const angle = direction.angleTo(currentLookAt);
+                        const axis = new THREE.Vector3().crossVectors(currentLookAt, direction).normalize();
+
+                        if (angle > 0.01) { // 避免微小角度导致的不稳定旋转
+                            const q = new THREE.Quaternion().setFromAxisAngle(axis, angle * 0.1); // 缓慢转向
+                            obj.quaternion.slerp(q, 0.1); // 球形线性插值更平滑
+                        }
+
+                        // 翅膀拍动动画
+                        if (obj.userData.type === 'butterfly' && obj.userData.leftWing && obj.userData.rightWing) {
+                            const flapAngle = Math.sin(elapsedTime * obj.userData.wingSpeed + obj.userData.wingOffset) * 0.4; // 拍动角度
+                            obj.userData.leftWing.rotation.z = Math.PI / 4 + flapAngle;
+                            obj.userData.rightWing.rotation.z = -Math.PI / 4 - flapAngle;
+                        } else if (obj.userData.type === 'bee' && obj.userData.wing1 && obj.userData.wing2) {
+                             const flapAngle = Math.sin(elapsedTime * obj.userData.wingSpeed + obj.userData.wingOffset) * 0.6; // 蜜蜂拍动幅度更大
+                            obj.userData.wing1.rotation.y = Math.PI / 2 + flapAngle; // 假设翅膀在 Y 轴上拍动
+                            obj.userData.wing2.rotation.y = Math.PI / 2 - flapAngle;
+                        }
+                    }
+                });
+
+                renderer.render(scene, camera);
+                requestAnimationFrame(animate);
+            };
+
+            animate(); // 开始动画循环
+        };
+    </script>
+</body>
+</html>
